@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended: true})); //parses form data like html form
 
 if(ENV.NODE_ENV === "production"){
     const __dirname = path.resolve();
-    app.use(express.static(path.join(__dirname, "../frontend/build")));
+    app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
     app.get("/{*any}", (req, res) => {
         res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
