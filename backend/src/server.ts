@@ -14,6 +14,11 @@ app.use(clerkMiddleware()); //auth object will be attached to the (req)
 app.use(express.json()); //request bodies
 app.use(express.urlencoded({extended: true})); //parses form data like html forms
 
+
+app.use("/api/users",userRoute)
+app.use("/api/products",productRoute)
+app.use("/api/comments",commentRoute);
+
 if(ENV.NODE_ENV === "production"){
     const __dirname = path.resolve();
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
@@ -23,10 +28,5 @@ if(ENV.NODE_ENV === "production"){
     });
 }
 
-app.use("/api/users",userRoute)
-app.use("/api/products",productRoute)
-app.use("/api/comments",commentRoute)
-
-
-app.listen(ENV.PORT, () => console.log("SERVER IS RUNNING ON PORT 3000")
+app.listen(ENV.PORT, () => console.log("SERVER IS RUNNING ON PORT " + ENV.PORT)
 )
