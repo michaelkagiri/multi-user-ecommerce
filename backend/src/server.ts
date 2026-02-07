@@ -5,6 +5,7 @@ import { clerkMiddleware } from "@clerk/express";
 import userRoute from "./routes/userRoutes";
 import productRoute from "./routes/productsRoutes";
 import commentRoute from "./routes/commentsRoutes";
+import path from "path"
 
 const app = express();
 
@@ -13,16 +14,14 @@ app.use(clerkMiddleware()); //auth object will be attached to the (req)
 app.use(express.json()); //request bodies
 app.use(express.urlencoded({extended: true})); //parses form data like html forms
 
-app.get("/", (req,res) => {
-    res.json({
-        message: "welcome to online market",
-        endpoints: {
-            users: "/api/user",
-            products: "/api/products",
-            comments: "/api/comments",
-        },
-    })
-});
+if(ENV.NODE_ENV === "production"){
+    const __dirname = path.resolve();
+    app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+    app.get("/{*any}", (req, res) => {
+        res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+    });
+}
 
 app.use("/api/users",userRoute)
 app.use("/api/products",productRoute)
