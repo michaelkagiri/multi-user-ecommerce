@@ -1,9 +1,9 @@
 import { useProducts } from "../hooks/useProducts";
-import { PackageIcon, SparklesIcon } from "lucide-react";
+import { PackageIcon} from "lucide-react";
 import { Link } from "react-router";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ProductCard from "../components/ProductCard";
-import { SignInButton } from "@clerk/clerk-react";
+// import { SignInButton } from "@clerk/clerk-react";
 
 function HomePage() {
   const { data: products, isLoading, error } = useProducts();
