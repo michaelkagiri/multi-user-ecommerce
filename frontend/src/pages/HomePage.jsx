@@ -1,14 +1,16 @@
 import { useProducts } from "../hooks/useProducts";
-import { PackageIcon} from "lucide-react";
-import { Link } from "react-router";
+import { PackageIcon } from "lucide-react";
+import { Link } from "react-router-dom"; // ← note: usually "react-router-dom" not "react-router"
 import LoadingSpinner from "../components/LoadingSpinner";
 import ProductCard from "../components/ProductCard";
-// import { SignInButton } from "@clerk/clerk-react";
 
 function HomePage() {
-  const { data: products, isLoading, error } = useProducts();
+  const { data: products = [], isLoading, error } = useProducts(); 
+  // ↑ Default to empty array if data is undefined → prevents .length / .map crash
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   if (error) {
     return (
@@ -18,36 +20,11 @@ function HomePage() {
     );
   }
 
+  // At this point: !isLoading && !error
+  // products is now guaranteed to be array (thanks to = [] fallback)
+
   return (
     <div>
-    
-      {/* <div className="rounded-box overflow-hidden">
-        <div className="hero-content flex-col lg:flex-row-reverse gap-10 py-10">
-          <div className="relative">
-            <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full scale-110" />
-            <img
-              src="/image.png"
-              alt="Creator"
-              className="relative h-64 lg:h-72 rounded-2xl shadow-2xl"
-            />
-          </div>
-          <div className="text-center lg:text-left">
-            <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
-              Share Your <span className="text-primary">Products</span>
-            </h1>
-            <p className="py-4 text-base-content/60">
-              Upload, discover, and connect with creators.
-            </p>
-            <SignInButton mode="modal">
-              <button className="btn btn-primary">
-                <SparklesIcon className="size-4" />
-                Start Selling
-              </button>
-            </SignInButton>
-          </div>
-        </div>
-      </div> */}
-
       {/* PRODUCTS */}
       <div>
         <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
@@ -77,4 +54,5 @@ function HomePage() {
     </div>
   );
 }
+
 export default HomePage;
