@@ -1,6 +1,6 @@
 // import {SignInButton} from "@clerk/clerk-react"
 import Navbar from "./components/Navbar"
-import {Route, Routes} from "react-router"
+import {Navigate, Route, Routes} from "react-router"
 import HomePage from "./pages/HomePage"
 import ProductPage from "./pages/ProductPage"
 import ProfilePage from "./pages/ProfilePage"
