@@ -6,10 +6,11 @@ import ProductCard from "../components/ProductCard";
 // import { SignInButton } from "@clerk/clerk-react";
 
 function HomePage() {
-  const { data: products=[], isLoading, error } = useProducts();
+  const { data: products, isLoading, error } = useProducts();
 
-  if (isLoading) return <LoadingSpinner />;
-
+if (isLoading || products === undefined) {
+  return <LoadingSpinner />;
+}
   if (error) {
     return (
       <div role="alert" className="alert alert-error">
